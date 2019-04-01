@@ -52,6 +52,7 @@ export class HistoryComponent implements OnInit {
       this.edge = edge;
     });
   }
+  
 
   updateOnWindowResize() {
     //console.log(window.innerHeight, window.innerWidth);
