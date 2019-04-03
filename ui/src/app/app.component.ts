@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Platform, PopoverController, ToastController } from '@ionic/angular';
+import { Platform, PopoverController, ToastController, MenuController } from '@ionic/angular';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { environment } from '../environments';
@@ -17,6 +17,7 @@ import { LanguageTag } from './shared/translate/language';
 export class AppComponent {
   public env = environment;
   public backUrl: string | boolean = '/';
+  public sideMenu: boolean = true;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -28,7 +29,8 @@ export class AppComponent {
     public service: Service,
     private popoverController: PopoverController,
     public router: Router,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public menu: MenuController
   ) {
     // this.initializeApp();
     service.setLang(LanguageTag.DE);
@@ -61,7 +63,17 @@ export class AppComponent {
     ).subscribe(event => {
       let url = (<NavigationEnd>event).urlAfterRedirects;
       this.updateBackUrl(url);
+      this.updateMenue();
     })
+  }
+
+  updateMenue() {
+    if (this.router.url == '/settings' || this.router.url == '/about') {
+      this.sideMenu = false;
+    }
+    else {
+      this.sideMenu = true;
+    }
   }
 
   updateBackUrl(url: string) {
@@ -108,6 +120,10 @@ export class AppComponent {
       translucent: false
     });
     return await popover.present();
+  }
+
+  close() {
+    this.menu.close();
   }
 
 }
