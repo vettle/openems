@@ -15,6 +15,7 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.metatype.annotations.Designate;
 
+import io.openems.common.channel.Unit;
 import io.openems.common.types.OpenemsType;
 import io.openems.edge.bridge.modbus.api.AbstractOpenemsModbusComponent;
 import io.openems.edge.bridge.modbus.api.BridgeModbus;
@@ -27,7 +28,6 @@ import io.openems.edge.bridge.modbus.api.element.UnsignedWordElement;
 import io.openems.edge.bridge.modbus.api.task.FC3ReadRegistersTask;
 import io.openems.edge.common.channel.Channel;
 import io.openems.edge.common.channel.Doc;
-import io.openems.edge.common.channel.Unit;
 import io.openems.edge.common.channel.value.Value;
 import io.openems.edge.common.component.OpenemsComponent;
 import io.openems.edge.common.event.EdgeEventConstants;
@@ -108,7 +108,7 @@ public class FeneconProPvMeter extends AbstractOpenemsModbusComponent
 	@Override
 	protected ModbusProtocol defineModbusProtocol() {
 		return new ModbusProtocol(this, //
-				new FC3ReadRegistersTask(121, Priority.HIGH, //
+				new FC3ReadRegistersTask(121, Priority.LOW, //
 						m(AsymmetricMeter.ChannelId.VOLTAGE_L1, new UnsignedWordElement(121),
 								ElementToChannelConverter.SCALE_FACTOR_2), //
 						m(AsymmetricMeter.ChannelId.VOLTAGE_L2, new UnsignedWordElement(122),
@@ -116,19 +116,19 @@ public class FeneconProPvMeter extends AbstractOpenemsModbusComponent
 						m(AsymmetricMeter.ChannelId.VOLTAGE_L3, new UnsignedWordElement(123),
 								ElementToChannelConverter.SCALE_FACTOR_2)), //
 
-				new FC3ReadRegistersTask(2035, Priority.HIGH, // //
+				new FC3ReadRegistersTask(2035, Priority.LOW, // //
 						m(FeneconProPvMeter.ChannelId.ACTIVE_ENERGY_L1, new UnsignedDoublewordElement(2035),
 								ElementToChannelConverter.SCALE_FACTOR_2), //
 						new DummyRegisterElement(2037, 2065), //
 						m(AsymmetricMeter.ChannelId.ACTIVE_POWER_L1, new UnsignedWordElement(2066),
 								MINUS_10000_CONVERTER)), //
-				new FC3ReadRegistersTask(2135, Priority.HIGH, // //
+				new FC3ReadRegistersTask(2135, Priority.LOW, // //
 						m(FeneconProPvMeter.ChannelId.ACTIVE_ENERGY_L2, new UnsignedDoublewordElement(2135),
 								ElementToChannelConverter.SCALE_FACTOR_2), //
 						new DummyRegisterElement(2137, 2165), //
 						m(AsymmetricMeter.ChannelId.ACTIVE_POWER_L2, new UnsignedWordElement(2166),
 								MINUS_10000_CONVERTER)), //
-				new FC3ReadRegistersTask(2235, Priority.HIGH, // //
+				new FC3ReadRegistersTask(2235, Priority.LOW, // //
 						m(FeneconProPvMeter.ChannelId.ACTIVE_ENERGY_L3, new UnsignedDoublewordElement(2235),
 								ElementToChannelConverter.SCALE_FACTOR_2), //
 						new DummyRegisterElement(2237, 2265), //
