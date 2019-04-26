@@ -17,7 +17,7 @@ import { LanguageTag } from './shared/translate/language';
 export class AppComponent {
   public env = environment;
   public backUrl: string | boolean = '/';
-  public sideMenu: boolean = true;
+  public sideMenu: boolean;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -54,6 +54,11 @@ export class AppComponent {
       });
       toast.present();
     });
+
+
+
+    // set inital Side Menue
+    this.updateMenu(window.location.pathname);
     // set initial backUrl
     this.updateBackUrl(window.location.pathname);
     // update backUrl on navigation events
@@ -63,12 +68,15 @@ export class AppComponent {
     ).subscribe(event => {
       let url = (<NavigationEnd>event).urlAfterRedirects;
       this.updateBackUrl(url);
-      this.updateMenue();
+      this.updateMenu(url);
     })
   }
 
-  updateMenue() {
-    if (this.router.url == '/settings' || this.router.url == '/about') {
+  updateMenu(url: string) {
+    let urlArray = url.split('/');
+    let file = urlArray.pop();
+
+    if (file == 'settings' || file == 'about' || urlArray.length > 3) {
       this.sideMenu = false;
     }
     else {
@@ -97,6 +105,7 @@ export class AppComponent {
     if (file === 'index') {
       urlArray.pop();
     }
+
     // re-join the url
     backUrl = urlArray.join('/') || '/';
 
@@ -104,13 +113,15 @@ export class AppComponent {
     if (backUrl === '/device') {
       backUrl = '/';
     }
+
+    // disable backUrl for History Component
+    if (file == 'history') {
+      this.backUrl = false;
+    }
+
     this.backUrl = backUrl;
   }
 
-  ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
 
   //Presents Popovermenu for Navbar
   async presentPopover(event: any) {
@@ -122,8 +133,8 @@ export class AppComponent {
     return await popover.present();
   }
 
+  //closes SideMenu
   close() {
     this.menu.close();
   }
-
 }

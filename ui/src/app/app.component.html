@@ -1,23 +1,5 @@
 <ion-app>
-  <!-- <ion-header>
-    <ion-toolbar color=primary>
-      <ion-buttons *ngIf="backUrl" slot="start">
-        <ion-button [routerLink]="backUrl">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <nav *ngIf="(service.currentEdge | async) as edge">
-          <ion-button *ngIf="edge.roleIsAtLeast('owner')" routerLink="/device/{{ edge.id }}/settings">
-            <ion-icon name="settings" size="large">
-            </ion-icon>
-          </ion-button>
-        </nav>
-        <ion-button (click)="presentPopover($event)">
-          <ion-icon size="large" name="more"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar> -->
+
   <ion-header>
     <ion-toolbar color="primary">
       <ion-buttons *ngIf="backUrl" slot="start">
@@ -30,15 +12,13 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <!-- </ion-header> -->
+
 
   <ion-content>
 
     <!-- Show Websocket Status -->
-
     <ion-grid>
       <ion-row justify-content-center>
-
         <ion-col *ngIf="websocket.status == 'connecting'" size="12" size-md="6">
           <ion-card>
             <ion-item>
@@ -67,7 +47,6 @@
     </ion-grid>
 
     <!-- Side Menu  -->
-    <!-- TODO Enable Übersicht if more than one edge -->
     <ion-menu side="start" contentId="content">
       <ion-header>
         <ion-toolbar color="primary">
@@ -76,7 +55,8 @@
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-item lines="full">
+          <ion-item lines="full" *ngIf="env.backend === 'OpenEMS Backend'" routerLinkActive="active" routerLink="/index"
+            (click)="close()">
             <ion-label>FEMS Übersicht</ion-label>
           </ion-item>
           <ion-item lines="inset" routerLinkActive="active" routerLink="/about" (click)="close()">
@@ -86,9 +66,10 @@
             <ion-label translate>Menu.Settings</ion-label>
           </ion-item>
           <nav *ngIf="(service.currentEdge | async) as edge">
-            <ion-button lines="inset" *ngIf="edge.roleIsAtLeast('owner')" routerLink="/device/{{ edge.id }}/settings">
-              FEMS-Einstellungen
-            </ion-button>
+            <ion-item lines="inset" *ngIf="edge.roleIsAtLeast('owner')" routerLink="/device/{{ edge.id }}/settings"
+              (click)="close()">
+              <ion-label>FEMS-Einstellungen</ion-label>
+            </ion-item>
           </nav>
         </ion-list>
       </ion-content>
