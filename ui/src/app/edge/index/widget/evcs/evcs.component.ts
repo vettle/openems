@@ -104,7 +104,6 @@ export class EvcsComponent {
       this.edge.updateComponentConfig(this.websocket, this.controller.id, [
         { name: 'chargeMode', value: newChargeMode }
       ]).then(response => {
-        console.log("HIER", response);
         this.controller.properties.chargeMode = newChargeMode;
       }).catch(reason => {
         this.controller.properties.chargeMode = oldChargeMode;
@@ -127,7 +126,6 @@ export class EvcsComponent {
       this.edge.updateComponentConfig(this.websocket, this.controller.id, [
         { name: 'forceChargeMinPower', value: newMinChargePower }
       ]).then(response => {
-        console.log("HIER", response);
         this.controller.properties.forceChargeMinPower = newMinChargePower;
       }).catch(reason => {
         this.controller.properties.forceChargeMinPower = oldMinChargePower;
@@ -149,7 +147,6 @@ export class EvcsComponent {
       this.edge.updateComponentConfig(this.websocket, this.controller.id, [
         { name: 'defaultChargeMinPower', value: newMinChargePower }
       ]).then(response => {
-        console.log("HIER", response);
         this.controller.properties.defaultChargeMinPower = newMinChargePower;
       }).catch(reason => {
         this.controller.properties.defaultChargeMinPower = oldMinChargePower;
@@ -176,7 +173,6 @@ export class EvcsComponent {
       this.edge.updateComponentConfig(this.websocket, this.controller.id, [
         { name: 'defaultChargeMinPower', value: newMinChargePower }
       ]).then(response => {
-        console.log("HIER", response);
         this.controller.properties.defaultChargeMinPower = newMinChargePower;
       }).catch(reason => {
         this.controller.properties.defaultChargeMinPower = oldMinChargePower;

@@ -1,6 +1,19 @@
-<ion-grid>
-  <ion-row>
+<ion-grid *ngIf="edge" no-padding>
+  <ion-row justify-content-center no-padding>
+    <ion-col>
+      <ion-button expand="full" color="primary" routerLink="/device/{{ edge.id }}/index">
+        Index
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" color="secondary" routerLink="/device/{{ edge.id }}/history">
+        History
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
+  <!-- *ngIf="websocket.status == 'connecting'" -->
+  <ion-row no-padding>
     <!-- TODO: move date selection to modal view -->
     <ion-col size="12" size-md="5" size-lg="4" size-xl="3">
       <ion-card>

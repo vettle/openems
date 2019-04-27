@@ -103,6 +103,7 @@ export class Service implements ErrorHandler {
     // this.notify(notification);
   }
 
+
   /**
    * Parses the route params and sets the current edge
    */

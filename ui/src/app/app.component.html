@@ -1,5 +1,4 @@
 <ion-app>
-
   <ion-header>
     <ion-toolbar color="primary">
       <ion-buttons *ngIf="backUrl" slot="start">
@@ -14,12 +13,11 @@
   </ion-header>
 
 
-  <ion-content>
-
+  <ion-content no-padding>
     <!-- Show Websocket Status -->
-    <ion-grid>
+    <ion-grid *ngIf="websocket.status == 'connecting'" size="12" size-md="6">
       <ion-row justify-content-center>
-        <ion-col *ngIf="websocket.status == 'connecting'" size="12" size-md="6">
+        <ion-col>
           <ion-card>
             <ion-item>
               <ion-icon slot="start" name="wifi"></ion-icon>

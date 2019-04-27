@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform, PopoverController, ToastController, MenuController } from '@ionic/angular';
@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { environment } from '../environments';
 import { PopoverPage } from './shared/popover/popover.component';
-import { Service, Websocket } from './shared/shared';
+import { Service, Websocket, Edge } from './shared/shared';
 import { LanguageTag } from './shared/translate/language';
 
 @Component({
@@ -18,6 +18,7 @@ export class AppComponent {
   public env = environment;
   public backUrl: string | boolean = '/';
   public sideMenu: boolean;
+
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -30,7 +31,7 @@ export class AppComponent {
     private popoverController: PopoverController,
     public router: Router,
     public toastController: ToastController,
-    public menu: MenuController
+    public menu: MenuController,
   ) {
     // this.initializeApp();
     service.setLang(LanguageTag.DE);
@@ -54,7 +55,6 @@ export class AppComponent {
       });
       toast.present();
     });
-
 
 
     // set inital Side Menue
@@ -117,6 +117,7 @@ export class AppComponent {
     // disable backUrl for History Component
     if (file == 'history') {
       this.backUrl = false;
+      return;
     }
 
     this.backUrl = backUrl;

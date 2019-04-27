@@ -21,6 +21,7 @@ export class IndexComponent implements OnInit {
     this.service.setCurrentEdge(this.route).then(edge => {
       this.edge = edge
     });
+
   }
 
 }

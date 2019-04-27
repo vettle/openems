@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { addDays, format, getDate, getMonth, getYear, isSameDay, subDays } from 'date-fns';
 import { IMyDate, IMyDateRange, IMyDateRangeModel, IMyDrpOptions } from 'mydaterangepicker';
@@ -44,6 +44,7 @@ export class HistoryComponent implements OnInit {
     private route: ActivatedRoute,
     private translate: TranslateService,
     private service: Service,
+    private router: Router
   ) {
   }
 
@@ -52,7 +53,7 @@ export class HistoryComponent implements OnInit {
       this.edge = edge;
     });
   }
-  
+
 
   updateOnWindowResize() {
     //console.log(window.innerHeight, window.innerWidth);

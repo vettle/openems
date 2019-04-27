@@ -8,7 +8,7 @@ import { KwhComponent } from './kwh/kwh.component';
 @NgModule({
   imports: [
     SharedModule,
-    WidgetModule
+    WidgetModule,
   ],
   declarations: [
     HistoryComponent,
