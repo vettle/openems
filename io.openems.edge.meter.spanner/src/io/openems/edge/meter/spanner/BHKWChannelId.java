@@ -17,14 +17,12 @@ public enum BHKWChannelId implements io.openems.edge.common.channel.ChannelId {
 	COSPHI_L3(Doc.of(OpenemsType.INTEGER)) //
 	; //
 
-	
 	private final Doc doc;
 
 	private BHKWChannelId(Doc doc) {
 		this.doc = doc;
 	}
 
-	
 	@Override
 	public Doc doc() {
 		return this.doc;
