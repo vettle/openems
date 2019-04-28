@@ -4,13 +4,16 @@ import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
 @ObjectClassDefinition(//
-		name = "Controller IO Fix Digital Output", //
-		description = "This controller sets a digital output channel according to the given value")
+		name = "Controller Avoid Total Discharge Soc Timeline", //
+		description = "This Controller Sets Timeline To Avoid Total Discharge According To The Soc")
 @interface Config {
 
-	String id() default "ess0";
+	String id() default "ctrlAvoidTotallDischrgSocTmline0";
 
 	boolean enabled() default true;
+
+	@AttributeDefinition(name = "ESS-IDs", description = "IDs of Ess devices.")
+	String[] ess_ids();
 
 	@AttributeDefinition(name = "Soc Timeline", description = "This option configures an minsoc at a time for an ess. If no minsoc for an ess is configured the controller uses the minsoc of the ess.")
 	String socTimeline();
@@ -27,5 +30,5 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 	@AttributeDefinition(name = "Enable Discharge ", description = "This option allowes the system to discharge the ess according to the nextDischarge completely. This improves the soc calculation.")
 	boolean enableDischarge() default false;
 
-	String webconsole_configurationFactory_nameHint() default "Controller IO FixDigitalOutput [{id}]";
+	String webconsole_configurationFactory_nameHint() default "Controller AvoidTotalDischargeSocTimeline[{id}]";
 }
