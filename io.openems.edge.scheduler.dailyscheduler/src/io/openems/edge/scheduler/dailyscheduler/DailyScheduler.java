@@ -45,7 +45,7 @@ public class DailyScheduler extends AbstractScheduler implements Scheduler, Open
 
 	private Map<String, Controller> _controllers = new ConcurrentHashMap<>();
 
-	private String controllersIdsJson = new String();
+	private String controllersIdsJson = "";
 
 	private String[] controllersIds = new String[0];
 
@@ -110,12 +110,14 @@ public class DailyScheduler extends AbstractScheduler implements Scheduler, Open
 			}
 		}
 
-		try {
+		// Update the Daily Controllers
+		if (!this.controllersIdsJson.isEmpty()) {
+
 			JsonArray controllerTime = JsonUtils.getAsJsonArray(JsonUtils.parse(this.controllersIdsJson));
 			for (JsonElement element : controllerTime) {
 
 				LocalTime Time = LocalTime.parse(JsonUtils.getAsString(element, "time"));
-				JsonArray JsonControllers = JsonUtils.getAsJsonArray(element, "controller");
+				JsonArray JsonControllers = JsonUtils.getAsJsonArray(element, "controllers");
 				List<Controller> listOfControllers = new ArrayList<>();
 
 				for (JsonElement id : JsonControllers) {
@@ -132,9 +134,6 @@ public class DailyScheduler extends AbstractScheduler implements Scheduler, Open
 				}
 
 			}
-
-		} catch (NullPointerException e) {
-			throw new OpenemsException("Unable to set values [" + controllersIds + "] " + e.getMessage());
 		}
 
 	}
@@ -150,7 +149,7 @@ public class DailyScheduler extends AbstractScheduler implements Scheduler, Open
 
 		LocalTime currentTime = LocalTime.now();
 
-		if(this.contollersList.lowerEntry(currentTime).getValue() != null) {
+		if (this.contollersList.lowerEntry(currentTime).getValue() != null) {
 			this.sortedControllers.addAll(this.contollersList.lowerEntry(currentTime).getValue());
 		}
 		return this.sortedControllers;

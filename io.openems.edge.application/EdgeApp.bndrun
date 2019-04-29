@@ -180,7 +180,7 @@
 	io.openems.edge.simulator;version=snapshot,\
 	io.openems.edge.meter.virtual;version=snapshot,\
 	io.openems.edge.meter.artemes.am2;version=snapshot,\
-	io.openems.edge.ess.byd.container;version=snapshot
+	io.openems.edge.ess.byd.container;version=snapshot,\
 	io.openems.edge.scheduler.dailyscheduler;version=snapshot,\
 	io.openems.edge.ess.sma;version=snapshot,\
 	io.openems.edge.controller.symmetric.reactivepowervoltagecharacteristic;version=snapshot
