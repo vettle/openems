@@ -14,10 +14,18 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 	/*
 	 * WAGO
 	 */
-	// Q1 - ess1
-	@AttributeDefinition(name = "", description = "")
-	String channelAddress();
+	// Permission Signal Bock Heat Power Plant Relay Output 1/1
+	@AttributeDefinition(name = "", description = "Permission Signal Bock Heat Power Plant")
+	String blockHeatPowerPlantPermissionSignal() default "io0/DigitalOutputM1C1";
 
+	// On Grid Indication Controller Relay Output 1/2
+	@AttributeDefinition(name = "On Grid Indication Controller", description = "On Grid Indication Controller")
+	String onGridIndicationController() default "io0/DigitalOutputM1C2";
+
+	// Off Grid Indication Controller Relay Output 2/1
+	@AttributeDefinition(name = "Off Grid Indication Controller", description = "Off Grid Indication Controller")
+	String offGridIndicationController() default "io0/DigitalOutputM2C1";
+	
 	/*
 	 * Meters
 	 */
@@ -27,8 +35,8 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 	/*
 	 * Ess
 	 */
-	@AttributeDefinition(name = "Ess1-ID", description = "ID of Ess1.")
-	String ess1_id();
+	@AttributeDefinition(name = "Ess-ID", description = "ID of Ess.")
+	String ess_id();
 
 	String webconsole_configurationFactory_nameHint() default "Controller Emergency Mode [{id}]";
 }
