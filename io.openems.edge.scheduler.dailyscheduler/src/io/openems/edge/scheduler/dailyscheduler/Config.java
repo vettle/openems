@@ -17,7 +17,7 @@ import io.openems.edge.scheduler.api.Scheduler;
 	int cycleTime() default Scheduler.DEFAULT_CYCLE_TIME;
 
 	@AttributeDefinition(name = "Controller-IDs", description = "IDs of Controllers.")
-	String controllers_ids_json() default "";
+	String controllers_ids_json() default "[{ \"time\" : \"16:00:00\" ,\"controller\" : \"ctrlLimitTotalDischarge0\" }, { \"time\": \"16:00:01\",\"controller\" :  \"ctrlLimitTotalDischarge1\" },{\"time\": \"16:00:04\" ,\"controller\": \"ctrlLimitTotalDischarge2\" },{\"time\": \"16:00:05\" ,\"controller\": \"ctrlLimitTotalDischarge3\" }]";
 
 	@AttributeDefinition(name = "Controller-IDs", description = "IDs of Controllers. Controller execution is going to be sorted in the order of the IDs.")
 	String[] controllers_ids() default {};

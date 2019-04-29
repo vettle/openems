@@ -102,7 +102,6 @@ public class EmergencyMode extends AbstractOpenemsComponent implements Controlle
 		}
 		this.setOutput(this.onGridIndicationController, Operation.CLOSE);
 		this.setOutput(this.offGridIndicationController, Operation.OPEN);
-		
 	}
 
 
