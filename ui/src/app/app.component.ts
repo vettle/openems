@@ -18,7 +18,7 @@ export class AppComponent {
   public env = environment;
   public backUrl: string | boolean = '/';
   public sideMenu: boolean;
-
+  public edge: Edge = null;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -32,6 +32,7 @@ export class AppComponent {
     public router: Router,
     public toastController: ToastController,
     public menu: MenuController,
+    private route: ActivatedRoute
   ) {
     // this.initializeApp();
     service.setLang(LanguageTag.DE);
@@ -55,8 +56,6 @@ export class AppComponent {
       });
       toast.present();
     });
-
-
     // set inital Side Menue
     this.updateMenu(window.location.pathname);
     // set initial backUrl
@@ -116,6 +115,7 @@ export class AppComponent {
 
     // disable backUrl for History Component
     if (file == 'history') {
+      console.log("HAAAAAAAAAAAAAAllo")
       this.backUrl = false;
       return;
     }

@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelAddress, Edge, Service, Websocket } from '../../../../shared/shared';
 import { ModalController } from '@ionic/angular';
-import { StorageModalPage } from './storage-modal/storage-modal.page';
+import { ProductionModalPage } from './production-modal/production-modal.page';
 
 @Component({
-    selector: 'storage',
-    templateUrl: './storage.component.html'
+    selector: 'production',
+    templateUrl: './production.component.html'
 })
-export class StorageComponent {
+export class ProductionComponent {
 
-    private static readonly SELECTOR = "storage";
+    private static readonly SELECTOR = "production";
 
 
     public edge: Edge = null;
@@ -25,7 +25,7 @@ export class StorageComponent {
     ngOnInit() {
         this.service.setCurrentEdge(this.route).then(edge => {
             this.edge = edge;
-            edge.subscribeChannels(this.websocket, StorageComponent.SELECTOR, [
+            edge.subscribeChannels(this.websocket, ProductionComponent.SELECTOR, [
                 // Ess
                 new ChannelAddress('_sum', 'EssSoc'), new ChannelAddress('_sum', 'EssActivePower'),
                 // Grid
@@ -40,16 +40,13 @@ export class StorageComponent {
 
     ngOnDestroy() {
         if (this.edge != null) {
-            this.edge.unsubscribeChannels(this.websocket, StorageComponent.SELECTOR);
+            this.edge.unsubscribeChannels(this.websocket, ProductionComponent.SELECTOR);
         }
     }
 
     async presentModal() {
         const modal = await this.modalController.create({
-            component: StorageModalPage,
-            componentProps: {
-                edge: this.edge
-            }
+            component: ProductionModalPage,
         });
         return await modal.present();
     }

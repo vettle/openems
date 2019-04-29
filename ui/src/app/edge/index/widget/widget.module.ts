@@ -5,6 +5,9 @@ import { ModbusApiComponent } from './modbusapi/modbusapi.component';
 import { WidgetComponent } from './widget.component';
 import { ChannelthresholdComponent } from './channelthreshold/channelthreshold.component';
 import { StorageComponent } from './storage/storage.component';
+import { GridComponent } from './grid/grid.component';
+import { ProductionComponent } from './production/production.component';
+import { ConsumptionComponent } from './consumption/consumption.component';
 
 @NgModule({
   imports: [
@@ -15,7 +18,10 @@ import { StorageComponent } from './storage/storage.component';
     ChannelthresholdComponent,
     EvcsComponent,
     ModbusApiComponent,
-    StorageComponent
+    StorageComponent,
+    GridComponent,
+    ConsumptionComponent,
+    ProductionComponent
   ],
   exports: [
     WidgetComponent

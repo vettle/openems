@@ -33,6 +33,10 @@ import { environment as env } from '../environments/environment';
 import { FormlyModule } from '@ngx-formly/core';
 import { RepeatTypeComponent } from './edge/settings/component/shared/repeat';
 import { EvcsModalPageModule } from './edge/index/widget/evcs/evcs-modal/evcs-modal.module';
+import { StorageModalPageModule } from './edge/index/widget/storage/storage-modal/storage-modal.module';
+import { GridModalPageModule } from './edge/index/widget/grid/grid-modal/grid-modal.module';
+import { ConsumptionModalPageModule } from './edge/index/widget/consumption/consumption-modal/consumption-modal.module';
+import { ProductionModalPageModule } from './edge/index/widget/production/production-modal/production-modal.module';
 
 
 @NgModule({
@@ -57,6 +61,10 @@ import { EvcsModalPageModule } from './edge/index/widget/evcs/evcs-modal/evcs-mo
     EdgeSettingsModule,
     IndexModule,
     EvcsModalPageModule,
+    StorageModalPageModule,
+    GridModalPageModule,
+    ConsumptionModalPageModule,
+    ProductionModalPageModule,
     TranslateModule.forRoot({
       loader: { provide: TranslateLoader, useClass: Language }
     }),

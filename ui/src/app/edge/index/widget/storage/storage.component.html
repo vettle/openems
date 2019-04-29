@@ -1,102 +1,62 @@
 <ng-container *ngIf="edge.currentData | async as currentData">
     <ion-card>
         <ion-item color="light">
-            <ion-img style="width:40px" src="assets/img/storage.png"></ion-img>
+            <ion-img (click)="presentModal()" style="width:40px; cursor: pointer;" src="assets/img/storage.png">
+            </ion-img>
             <ion-label translate>General.StorageSystem</ion-label>
         </ion-item>
+
         <ion-card-content *ngIf="currentData.summary.storage as sum">
-            <ion-grid>
-
-
-                <!-- <ion-item lines="full" no-padding>
-                <ion-text slot="start" translate>
-
-                    General.Soc
-                </ion-text>
-                <ion-text slot="end">
-                    {{ sum.soc | number:'1.0-0' }}&nbsp;%
-                </ion-text>
-            </ion-item>
-
-            <ion-item lines="none" *ngIf="sum.chargeActivePowerDC != null" no-padding class="ion-no-margin">
-                <ion-text slot="start">
-                    <h5 translate>
-                        General.ChargePower
-                    </h5>
-                </ion-text>
-                <ion-text slot="end">
-                    <h5>
-                        {{ sum.chargeActivePowerDC | number:'1.0-0' }}&nbsp;W
-                    </h5>
-                </ion-text>
-            </ion-item>
-
-
-            <ion-item lines="none" *ngIf="sum.chargeActivePowerAC != null" no-padding class="ion-no-margin">
-                <ion-text slot="start">
-                    <h5 translate>
-                        General.ChargePower&nbsp;
-                        <span *ngIf="sum.chargeActivePowerDC != null"> AC</span>
-                    </h5>
-                </ion-text>
-                <ion-text slot="end" *ngIf="sum.chargeActivePowerAC != 0; else empty">
-                    <h5>
-                        {{ sum.chargeActivePowerAC | number:'1.0-0' }}&nbsp;W
-                    </h5>
-                </ion-text>
-            </ion-item>
-
-            <ion-item lines="none" *ngIf="sum.dischargeActivePowerAC != null" no-padding class="ion-no-margin">
-                <ion-text slot="start">
-                    <h5 translate>
-                        General.DischargePower&nbsp;
-                        <span *ngIf="sum.chargeActivePowerDC != null"> AC</span></h5>
-                </ion-text>
-                <ion-text slot="end" *ngIf="sum.dischargeActivePowerAC != 0; else empty">
-                    <h5>
-                        {{ sum.dischargeActivePowerAC | number:'1.0-0' }}&nbsp;W
-                    </h5>
-                </ion-text>
-            </ion-item> -->
-
-
-
-
-
-                <ion-row>
-                    <ion-col translate size="8">
-                        General.Soc
-                    </ion-col>
-                    <ion-col size="4" text-end>
-                        {{ sum.soc | number:'1.0-0' }}&nbsp;%
-                    </ion-col>
-                </ion-row>
-                <ion-row *ngIf="sum.chargeActivePowerDC != null">
-                    <ion-col translate size="8">
-                        General.ChargePower
-                    </ion-col>
-                    <ion-col size="4" text-end>
-                        {{ sum.chargeActivePowerDC | number:'1.0-0' }}&nbsp;W
-                    </ion-col>
-                </ion-row>
-                <ion-row *ngIf="sum.chargeActivePowerAC != null">
-                    <ion-col translate size="8">
-                        General.ChargePower&nbsp;
-                        <span *ngIf="sum.chargeActivePowerDC != null"> AC</span>
-                    </ion-col>
-                    <ion-col size="4" text-end *ngIf="sum.chargeActivePowerAC != 0; else empty">
-                        {{ sum.chargeActivePowerAC | number:'1.0-0' }}&nbsp;W
-                    </ion-col>
-                </ion-row>
-                <ion-row *ngIf="sum.dischargeActivePowerAC != null">
-                    <ion-col translate size="8">
-                        General.DischargePower&nbsp;
-                        <span *ngIf="sum.chargeActivePowerDC != null"> AC</span>
-                    </ion-col>
-                    <ion-col size="4" text-end *ngIf="sum.dischargeActivePowerAC != 0; else empty">
-                        {{ sum.dischargeActivePowerAC | number:'1.0-0' }}&nbsp;W
-                    </ion-col>
-                </ion-row>
+            <ion-grid no-padding>
+                <table class="full_width">
+                    <tr class="underline">
+                        <td style="width:50%" translate>General.Soc</td>
+                        <td style="width:15%"></td>
+                        <td style="width:25%" class="align_right">{{ sum.soc | number:'1.0-0' }}</td>
+                        <td style="width:10%">&nbsp;%</td>
+                    </tr>
+                    <!-- DC -->
+                    <tr *ngIf="sum.chargeActivePowerDC != null">
+                        <td>
+                            <span translate>General.ChargePower</span> DC</td>
+                        <td></td>
+                        <td class="align_right">{{ sum.chargeActivePowerDC | number:'1.0-0' }}</td>
+                        <td>&nbsp;W</td>
+                    </tr>
+                    <!-- AC -->
+                    <ng-container *ngIf="sum.chargeActivePowerAC != null">
+                        <tr>
+                            <td translate>General.ChargePower
+                                <span *ngIf="sum.chargeActivePowerDC != null"> AC</span>
+                            </td>
+                            <td></td>
+                            <ng-container *ngIf="sum.chargeActivePowerAC != 0; else empty">
+                                <td class="align_right">{{ sum.chargeActivePowerAC | number:'1.0-0' }}</td>
+                                <td>&nbsp;W</td>
+                            </ng-container>
+                            <ng-template #empty>
+                                <td class="align_right">-</td>
+                                <td></td>
+                            </ng-template>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="sum.dischargeActivePowerAC != null">
+                        <tr>
+                            <td translate>General.DischargePower
+                                <span *ngIf="sum.chargeActivePowerDC != null"> AC</span>
+                            </td>
+                            <td></td>
+                            <ng-container *ngIf="sum.dischargeActivePowerAC != 0; else empty">
+                                <td class="align_right">{{ sum.dischargeActivePowerAC | number:'1.0-0' }}</td>
+                                <td>&nbsp;W</td>
+                            </ng-container>
+                            <ng-template #empty>
+                                <td class="align_right">-</td>
+                                <td></td>
+                            </ng-template>
+                        </tr>
+                    </ng-container>
+                </table>
             </ion-grid>
         </ion-card-content>
     </ion-card>

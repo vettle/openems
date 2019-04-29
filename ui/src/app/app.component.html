@@ -1,6 +1,7 @@
 <ion-app>
   <ion-header>
     <ion-toolbar color="primary">
+      <!-- <ion-row> -->
       <ion-buttons *ngIf="backUrl" slot="start">
         <ion-button [routerLink]="backUrl">
           <ion-icon name="arrow-back"></ion-icon>
@@ -9,8 +10,18 @@
       <ion-buttons slot="start" *ngIf="sideMenu == true">
         <ion-menu-button autoHide="false"></ion-menu-button>
       </ion-buttons>
+      <!-- </ion-row> -->
+      <!-- <ion-row>
+        blabla
+      </ion-row> -->
+    </ion-toolbar>
+    <ion-toolbar *ngIf="edge">
+      <ion-button expand="full" color="secondary" routerLink="/device/{{ edge.id }}/index">
+        Index
+      </ion-button>
     </ion-toolbar>
   </ion-header>
+
 
 
   <ion-content no-padding>
