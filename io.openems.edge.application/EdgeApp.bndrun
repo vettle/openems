@@ -80,6 +80,7 @@
 	bnd.identity;id='io.openems.edge.meter.weidmueller',\
 	bnd.identity;id='io.openems.edge.pvinverter.solarlog',\
 	bnd.identity;id='io.openems.edge.scheduler.allalphabetically',\
+	bnd.identity;id='io.openems.edge.scheduler.dailyscheduler',\
 	bnd.identity;id='io.openems.edge.scheduler.fixedorder',\
 	bnd.identity;id='io.openems.edge.simulator',\
 	bnd.identity;id='io.openems.edge.timedata.influxdb'
@@ -177,3 +178,10 @@
 	io.openems.edge.meter.virtual;version=snapshot,\
 	io.openems.edge.meter.artemes.am2;version=snapshot,\
 	io.openems.edge.ess.byd.container;version=snapshot
+	io.openems.edge.scheduler.dailyscheduler;version=snapshot,\
+	io.openems.edge.ess.sma;version=snapshot,\
+	io.openems.edge.controller.symmetric.reactivepowervoltagecharacteristic;version=snapshot,\
+	org.jsr-305;version='[3.0.2,3.0.3)',\
+	com.fazecast.jSerialComm;version='[2.2.2,2.2.3)',\
+	com.ghgande.j2mod;version='[2.5.2,2.5.3)',\
+	com.google.guava;version='[27.1.0,27.1.1)'
