@@ -1,0 +1,13 @@
+#
+# io.openems.edge.project.controller.hofgutkarpfsee.emergencymode DEBUG LAUNCH SPECFICATION 
+#
+
+-include: ~io.openems.edge.project.controller.hofgutkarpfsee.emergencymode.bndrun
+
+-runrequires.debug:  \
+	${debug-bundles}
+
+-runtrace: true
+
+-runbundles: \
+	${error;Resolve first}
