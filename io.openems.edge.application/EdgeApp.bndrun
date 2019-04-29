@@ -174,6 +174,9 @@
 	io.openems.edge.meter.socomec;version=snapshot,\
 	io.openems.edge.meter.weidmueller;version=snapshot,\
 	io.openems.edge.scheduler.allalphabetically;version=snapshot,\
+	io.openems.edge.scheduler.dailyscheduler;version=snapshot,\
+	io.openems.edge.ess.sma;version=snapshot,\
+	io.openems.edge.controller.symmetric.reactivepowervoltagecharacteristic;version=snapshot,\
 	io.openems.edge.simulator;version=snapshot,\
 	io.openems.edge.meter.virtual;version=snapshot,\
 	io.openems.edge.meter.artemes.am2;version=snapshot,\
