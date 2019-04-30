@@ -88,6 +88,7 @@ export class AppComponent {
     // disable backUrl on initial 'index' page
     if (url === '/index') {
       this.backUrl = false;
+      this.navigation = false;
       return;
     }
 
