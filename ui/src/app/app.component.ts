@@ -18,7 +18,8 @@ export class AppComponent {
   public env = environment;
   public backUrl: string | boolean = '/';
   public sideMenu: boolean;
-  public edge: Edge = null;
+  public checkedd: boolean = true;
+  public navigation: boolean = false;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -94,6 +95,17 @@ export class AppComponent {
     let backUrl: string | boolean = '/';
     let file = urlArray.pop();
 
+    // disable backUrl for History Component
+    if ((file == 'history' || file == 'index') && urlArray.length == 3) {
+      this.backUrl = false;
+      this.navigation = true;
+      return;
+    }
+
+    else {
+      this.navigation = false;
+    }
+
     // disable backUrl to first 'index' page from Edge index if there is only one Edge in the system
     if (file === 'index' && urlArray.length == 3 && this.env.backend === "OpenEMS Edge") {
       this.backUrl = false;
@@ -113,12 +125,9 @@ export class AppComponent {
       backUrl = '/';
     }
 
-    // disable backUrl for History Component
-    if (file == 'history') {
-      console.log("HAAAAAAAAAAAAAAllo")
-      this.backUrl = false;
-      return;
-    }
+
+
+
 
     this.backUrl = backUrl;
   }

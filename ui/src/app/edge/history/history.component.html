@@ -1,17 +1,4 @@
 <ion-grid *ngIf="edge" no-padding>
-  <ion-row justify-content-center no-padding>
-    <ion-col>
-      <ion-button expand="full" color="primary" routerLink="/device/{{ edge.id }}/index">
-        Index
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button expand="full" color="secondary" routerLink="/device/{{ edge.id }}/history">
-        History
-      </ion-button>
-    </ion-col>
-  </ion-row>
-
   <!-- *ngIf="websocket.status == 'connecting'" -->
   <ion-row no-padding>
     <!-- TODO: move date selection to modal view -->
@@ -58,7 +45,6 @@
 
         <ion-card-content>
           <ion-grid no-padding>
-
             <ion-row [style.height]="socChartHeight">
               <ion-col size="12">
                 <soc [fromDate]="fromDate" [toDate]="toDate"></soc>
@@ -69,10 +55,8 @@
                 <energy [fromDate]="fromDate" [toDate]="toDate"></energy>
               </ion-col>
             </ion-row>
-
             <widget [fromDate]="fromDate" [toDate]="toDate"></widget>
           </ion-grid>
-
         </ion-card-content>
       </ion-card>
     </ion-col>

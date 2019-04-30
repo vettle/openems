@@ -1,19 +1,5 @@
 <ion-grid *ngIf="edge" no-padding>
   <ion-row justify-content-center no-padding>
-    <ion-col>
-      <ion-button expand="full" color="secondary" routerLink="/device/{{ edge.id }}/index">
-        Index
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button expand="full" color="primary" routerLink="/device/{{ edge.id }}/history">
-        History
-      </ion-button>
-    </ion-col>
-  </ion-row>
-
-
-  <ion-row justify-content-center no-padding>
 
     <!-- Energymonitor -->
     <ion-col size="12" size-md="8" size-lg="4">
@@ -21,9 +7,9 @@
     </ion-col>
 
     <!-- Energytable -->
-    <ion-col size="12" size-md="8" size-lg="4">
+    <!-- <ion-col size="12" size-md="8" size-lg="4">
       <energytable></energytable>
-    </ion-col>
+    </ion-col> -->
 
     <!-- History, not anymore -->
     <ion-col size="12" size-md="8" size-lg="4">

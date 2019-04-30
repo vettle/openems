@@ -1,26 +1,36 @@
 <ion-app>
   <ion-header>
     <ion-toolbar color="primary">
-      <!-- <ion-row> -->
       <ion-buttons *ngIf="backUrl" slot="start">
         <ion-button [routerLink]="backUrl">
           <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
       </ion-buttons>
+      <ion-title>FENECON Online Monitoring</ion-title>
       <ion-buttons slot="start" *ngIf="sideMenu == true">
         <ion-menu-button autoHide="false"></ion-menu-button>
       </ion-buttons>
-      <!-- </ion-row> -->
-      <!-- <ion-row>
-        blabla
-      </ion-row> -->
     </ion-toolbar>
-    <ion-toolbar *ngIf="edge">
-      <ion-button expand="full" color="secondary" routerLink="/device/{{ edge.id }}/index">
-        Index
-      </ion-button>
-    </ion-toolbar>
+
+    <div *ngIf="navigation == true">
+      <ng-container *ngIf="!backUrl && service.currentEdge | async as edge">
+        <ion-toolbar color="primary">
+          <ion-segment>
+            <ion-segment-button checked value="Live" routerLink="/device/{{ edge.id }}/index">
+              <ion-label>Live</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="History" routerLink="/device/{{ edge.id }}/history">
+              <ion-label>History</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-toolbar>
+      </ng-container>
+    </div>
   </ion-header>
+
+
+
+
 
 
 
