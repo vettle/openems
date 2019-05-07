@@ -13,8 +13,6 @@ import org.osgi.service.metatype.annotations.Designate;
 
 import io.openems.common.exceptions.OpenemsError.OpenemsNamedException;
 import io.openems.common.exceptions.OpenemsException;
-import io.openems.common.types.ChannelAddress;
-import io.openems.edge.common.channel.BooleanWriteChannel;
 import io.openems.edge.common.component.AbstractOpenemsComponent;
 import io.openems.edge.common.component.ComponentManager;
 import io.openems.edge.common.component.OpenemsComponent;
@@ -28,9 +26,9 @@ import io.openems.edge.ess.api.SymmetricEss;
 public class EmergencyMode extends AbstractOpenemsComponent implements Controller, OpenemsComponent {
 
 	private Config config;
-	private ChannelAddress onGridIndicationController;
-	private ChannelAddress offGridIndicationController;
-	private ChannelAddress blockHeatPowerPlantPermissionSignal;
+//	private ChannelAddress onGridIndicationController;
+//	private ChannelAddress offGridIndicationController;
+//	private ChannelAddress blockHeatPowerPlantPermissionSignal;
 
 	@Reference
 	protected ComponentManager componentManager;
@@ -50,10 +48,10 @@ public class EmergencyMode extends AbstractOpenemsComponent implements Controlle
 	void activate(ComponentContext context, Config config) throws OpenemsNamedException {
 		super.activate(context, config.id(), config.enabled());
 		this.config = config;
-		this.onGridIndicationController = ChannelAddress.fromString(config.onGridIndicationController());
-		this.offGridIndicationController = ChannelAddress.fromString(config.offGridIndicationController());
-		this.blockHeatPowerPlantPermissionSignal = ChannelAddress
-				.fromString(config.blockHeatPowerPlantPermissionSignal());
+//		this.onGridIndicationController = ChannelAddress.fromString(config.onGridIndicationController());
+//		this.offGridIndicationController = ChannelAddress.fromString(config.offGridIndicationController());
+//		this.blockHeatPowerPlantPermissionSignal = ChannelAddress
+//				.fromString(config.blockHeatPowerPlantPermissionSignal());
 	}
 
 	@Deactivate
@@ -74,16 +72,16 @@ public class EmergencyMode extends AbstractOpenemsComponent implements Controlle
 			break;
 
 		case ON_GRID:
-			this.handleOnGridState();
+//			this.handleOnGridState();
 			break;
 		}
 	}
 
-	private void handleOnGridState() throws IllegalArgumentException, OpenemsNamedException {
-		this.setOutput(this.blockHeatPowerPlantPermissionSignal, Operation.CLOSE);
-		this.setOutput(this.onGridIndicationController, Operation.CLOSE);
-		this.setOutput(this.offGridIndicationController, Operation.OPEN);
-	}
+//	private void handleOnGridState() throws IllegalArgumentException, OpenemsNamedException {
+//		this.setOutput(this.blockHeatPowerPlantPermissionSignal, Operation.CLOSE);
+//		this.setOutput(this.onGridIndicationController, Operation.CLOSE);
+//		this.setOutput(this.offGridIndicationController, Operation.OPEN);
+//	}
 
 	private void handleOffGridState() throws IllegalArgumentException, OpenemsNamedException {
 		ManagedSymmetricEss ess;
@@ -95,15 +93,14 @@ public class EmergencyMode extends AbstractOpenemsComponent implements Controlle
 		Optional<Integer> soc = ess.getSoc().value().asOptional();
 		if (soc.isPresent()) {
 			if (soc.get() < 95) {
-				this.setOutput(this.blockHeatPowerPlantPermissionSignal, Operation.CLOSE);
+//				this.setOutput(this.blockHeatPowerPlantPermissionSignal, Operation.CLOSE);
 			} else {
 
 			}
 		}
-		this.setOutput(this.onGridIndicationController, Operation.CLOSE);
-		this.setOutput(this.offGridIndicationController, Operation.OPEN);
+//		this.setOutput(this.onGridIndicationController, Operation.CLOSE);
+//		this.setOutput(this.offGridIndicationController, Operation.OPEN);
 	}
-
 
 	/**
 	 * Gets the Grid-Mode of ESS.
@@ -138,22 +135,22 @@ public class EmergencyMode extends AbstractOpenemsComponent implements Controlle
 	 * @throws IllegalArgumentException on error
 	 * @throws OpenemsNamedException    on error
 	 */
-	private boolean setOutput(ChannelAddress channelAddress, Operation operation)
-			throws IllegalArgumentException, OpenemsNamedException {
-		boolean switchedOutput = false;
-		BooleanWriteChannel channel = this.componentManager.getChannel(channelAddress);
-		switch (operation) {
-		case CLOSE:
-			switchedOutput = this.setOutput(channel, true);
-			break;
-		case OPEN:
-			switchedOutput = this.setOutput(channel, false);
-			break;
-		case UNDEFINED:
-			break;
-		}
-		return switchedOutput;
-	}
+//	private boolean setOutput(ChannelAddress channelAddress, Operation operation)
+//			throws IllegalArgumentException, OpenemsNamedException {
+//		boolean switchedOutput = false;
+//		BooleanWriteChannel channel = this.componentManager.getChannel(channelAddress);
+//		switch (operation) {
+//		case CLOSE:
+//			switchedOutput = this.setOutput(channel, true);
+//			break;
+//		case OPEN:
+//			switchedOutput = this.setOutput(channel, false);
+//			break;
+//		case UNDEFINED:
+//			break;
+//		}
+//		return switchedOutput;
+//	}
 
 	/**
 	 * Sets the Output.
@@ -165,14 +162,14 @@ public class EmergencyMode extends AbstractOpenemsComponent implements Controlle
 	 * @throws IllegalArgumentException on error
 	 * @throws OpenemsNamedException    on error
 	 */
-	private boolean setOutput(BooleanWriteChannel channel, boolean value)
-			throws IllegalArgumentException, OpenemsNamedException {
-		if (channel.value().asOptional().equals(Optional.of(value))) {
-			// it is already in the desired state
-			return false;
-		} else {
-			channel.setNextWriteValue(value);
-			return true;
-		}
-	}
+//	private boolean setOutput(BooleanWriteChannel channel, boolean value)
+//			throws IllegalArgumentException, OpenemsNamedException {
+//		if (channel.value().asOptional().equals(Optional.of(value))) {
+//			// it is already in the desired state
+//			return false;
+//		} else {
+//			channel.setNextWriteValue(value);
+//			return true;
+//		}
+//	}
 }
