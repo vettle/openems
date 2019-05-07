@@ -22,6 +22,7 @@ import io.openems.edge.common.channel.Doc;
 import io.openems.edge.common.component.AbstractOpenemsComponent;
 import io.openems.edge.common.component.ComponentManager;
 import io.openems.edge.common.component.OpenemsComponent;
+import io.openems.edge.common.sum.GridMode;
 import io.openems.edge.controller.api.Controller;
 import io.openems.edge.ess.api.ManagedSymmetricEss;
 import io.openems.edge.ess.power.api.Phase;
@@ -115,6 +116,16 @@ public class LimitTotalDischargeController extends AbstractOpenemsComponent impl
 	public void run() throws OpenemsNamedException {
 		ManagedSymmetricEss ess = this.componentManager.getComponent(this.essId);
 
+		/*
+		 * Check that we are On-Grid (and warn on undefined Grid-Mode)
+		 */
+		GridMode gridMode = ess.getGridMode().value().asEnum();
+		if (gridMode.isUndefined()) {
+			this.logWarn(this.log, "Grid-Mode is [UNDEFINED]");
+		}
+		if (gridMode != GridMode.ON_GRID) {
+			return;
+		}
 		// Set to normal state and return if SoC is not available
 		Optional<Integer> socOpt = ess.getSoc().value().asOptional();
 		if (!socOpt.isPresent()) {
