@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Platform, PopoverController, ToastController, MenuController } from '@ionic/angular';
+import { Platform, ToastController, MenuController } from '@ionic/angular';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { environment } from '../environments';
-import { PopoverPage } from './shared/popover/popover.component';
-import { Service, Websocket, Edge } from './shared/shared';
+import { Service, Websocket } from './shared/shared';
 import { LanguageTag } from './shared/translate/language';
 
 @Component({
@@ -17,9 +16,8 @@ import { LanguageTag } from './shared/translate/language';
 export class AppComponent {
   public env = environment;
   public backUrl: string | boolean = '/';
-  public sideMenu: boolean;
-  public checkedd: boolean = true;
-  public navigation: boolean = false;
+  public enableSideMenu: boolean;
+  public isEdgeIndexPage: boolean = false;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -29,11 +27,9 @@ export class AppComponent {
     private statusBar: StatusBar,
     public websocket: Websocket,
     public service: Service,
-    private popoverController: PopoverController,
     public router: Router,
     public toastController: ToastController,
     public menu: MenuController,
-    private route: ActivatedRoute
   ) {
     // this.initializeApp();
     service.setLang(LanguageTag.DE);
@@ -57,38 +53,40 @@ export class AppComponent {
       });
       toast.present();
     });
-    // set inital Side Menue
-    this.updateMenu(window.location.pathname);
-    // set initial backUrl
-    this.updateBackUrl(window.location.pathname);
+    // set inital URL
+    this.updateUrl(window.location.pathname);
     // update backUrl on navigation events
     this.router.events.pipe(
       takeUntil(this.ngUnsubscribe),
       filter(event => event instanceof NavigationEnd)
     ).subscribe(event => {
-      let url = (<NavigationEnd>event).urlAfterRedirects;
-      this.updateBackUrl(url);
-      this.updateMenu(url);
+      this.updateUrl((<NavigationEnd>event).urlAfterRedirects);
     })
   }
 
-  updateMenu(url: string) {
+  updateUrl(url: string) {
+    this.updateBackUrl(url);
+    this.updateEnableSideMenu(url);
+    this.updateIsEdgeIndexPage(url);
+  }
+
+  updateEnableSideMenu(url: string) {
     let urlArray = url.split('/');
     let file = urlArray.pop();
 
     if (file == 'settings' || file == 'about' || urlArray.length > 3) {
-      this.sideMenu = false;
-    }
-    else {
-      this.sideMenu = true;
+      // disable side-menu; show back-button instead
+      this.enableSideMenu = false;
+    } else {
+      // enable side-menu if back-button is not needed 
+      this.enableSideMenu = true;
     }
   }
 
   updateBackUrl(url: string) {
-    // disable backUrl on initial 'index' page
+    // disable backUrl & Segment Navigation on initial 'index' page
     if (url === '/index') {
       this.backUrl = false;
-      this.navigation = false;
       return;
     }
 
@@ -96,28 +94,23 @@ export class AppComponent {
     let backUrl: string | boolean = '/';
     let file = urlArray.pop();
 
-    // disable backUrl for History Component
-    if ((file == 'history' || file == 'index') && urlArray.length == 3) {
+    // disable backUrl for History & EdgeIndex Component ++ Enable Segment Navigation
+    if ((file == 'history' || file == 'live') && urlArray.length == 3) {
       this.backUrl = false;
-      this.navigation = true;
       return;
-    }
-
-    else {
-      this.navigation = false;
+    } else {
     }
 
     // disable backUrl to first 'index' page from Edge index if there is only one Edge in the system
-    if (file === 'index' && urlArray.length == 3 && this.env.backend === "OpenEMS Edge") {
+    if (file === 'live' && urlArray.length == 3 && this.env.backend === "OpenEMS Edge") {
       this.backUrl = false;
       return;
     }
 
     // remove one part of the url for 'index'
-    if (file === 'index') {
+    if (file === 'live') {
       urlArray.pop();
     }
-
     // re-join the url
     backUrl = urlArray.join('/') || '/';
 
@@ -125,27 +118,23 @@ export class AppComponent {
     if (backUrl === '/device') {
       backUrl = '/';
     }
-
-
-
-
-
     this.backUrl = backUrl;
   }
 
+  updateIsEdgeIndexPage(url: string) {
+    let urlArray = url.split('/');
+    let file = urlArray.pop();
 
-  //Presents Popovermenu for Navbar
-  async presentPopover(event: any) {
-    const popover = await this.popoverController.create({
-      component: PopoverPage,
-      event: event,
-      translucent: false
-    });
-    return await popover.present();
+    // Enable Segment Navigation for Edge-Index-Page
+    if ((file == 'history' || file == 'live') && urlArray.length == 3) {
+      this.isEdgeIndexPage = true;
+    } else {
+      this.isEdgeIndexPage = false;
+    }
   }
 
-  //closes SideMenu
-  close() {
-    this.menu.close();
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
