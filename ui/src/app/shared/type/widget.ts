@@ -1,13 +1,12 @@
 export enum WidgetNature {
     'io.openems.edge.evcs.api.Evcs',
-    'io.openems.impl.controller.channelthreshold.ChannelThresholdController', // TODO deprecated
-    'io.openems.impl.controller.heatingelement.HeatingElement'
+    'io.openems.impl.controller.channelthreshold.ChannelThresholdController' // TODO deprecated
 }
 
 export enum WidgetFactory {
     'Controller.Api.ModbusTcp',
     'Controller.ChannelThreshold',
-    'Controller.Heatingelement'
+    'Controller.Io.FixDigitalOutput'
 }
 
 export class Widget {
