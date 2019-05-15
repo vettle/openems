@@ -106,6 +106,9 @@ export const TRANSLATION = {
                         MaxCharging: "Maximale laadstroom",
                         MaxChargingDetails: "Als de auto de ingevoerde maximale waarde niet kan laden, wordt het vermogen automatisch beperkt."
                     }
+                },
+                HeatingElement: {
+                    Title: "verwarmer"
                 }
             }
         },

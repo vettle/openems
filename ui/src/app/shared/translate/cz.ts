@@ -110,6 +110,9 @@ export const TRANSLATION = {
                         MaxCharging: "Maximální síla náboje",
                         MaxChargingDetails: "Pokud vůz nemůže načíst zadanou maximální hodnotu, je výkon automaticky omezen."
                     }
+                },
+                HeatingElement: {
+                    Title: "ohřívač"
                 }
             }
         },

@@ -20,6 +20,12 @@ export class WidgetComponent {
   ngOnInit() {
     this.service.setCurrentEdge(this.route);
     this.service.getWidgets().then(widgets => this.widgets = widgets);
+    this.widgets.forEach(widget => {
+      console.log("Widget:" + widget.name);
+      alert("hallo");
+    });
+    alert(this.widgets.length);
+    console.log(this.widgets);
   }
 
 }

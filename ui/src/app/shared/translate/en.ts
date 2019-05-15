@@ -113,6 +113,9 @@ export const TRANSLATION = {
                         MaxCharging: "Maximum charging power",
                         MaxChargingDetails: "If the car can not load the entered maximum value, the power will be automatically limited."
                     }
+                },
+                HeatingElement: {
+                    Title: "Heating element"
                 }
             }
         },

@@ -113,6 +113,9 @@ export const TRANSLATION = {
                         MaxCharging: "Maximale Ladestärke",
                         MaxChargingDetails: "Falls das Auto den eingegebenen Maximalwert nicht laden kann, wird die Leistung automatisch begrenzt."
                     }
+                },
+                HeatingElement: {
+                    Title: "Heizstab"
                 }
             }
         },

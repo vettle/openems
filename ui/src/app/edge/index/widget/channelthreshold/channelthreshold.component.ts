@@ -26,11 +26,18 @@ export class ChannelthresholdComponent {
     // Subscribe to CurrentData
     this.service.setCurrentEdge(this.route).then(edge => {
       this.edge = edge;
+
+      edge.subscribeChannels(this.websocket, ChannelthresholdComponent.SELECTOR + this.componentId, [
+
+        new ChannelAddress(this.componentId, 'Status'),
+        new ChannelAddress(this.componentId, 'L1_activation'),
+        new ChannelAddress(this.componentId, 'L2_activation'),
+        new ChannelAddress(this.componentId, 'L3_activation'),
+        new ChannelAddress(this.componentId, 'Hysteresis')
+      ]);
+
       this.service.getConfig().then(config => {
         this.outputChannel = ChannelAddress.fromString(config.getComponentProperties(this.componentId)['outputChannelAddress']);
-        edge.subscribeChannels(this.websocket, ChannelthresholdComponent.SELECTOR + this.componentId, [
-          this.outputChannel
-        ]);
       });
     });
   }
@@ -40,4 +47,26 @@ export class ChannelthresholdComponent {
       this.edge.unsubscribeChannels(this.websocket, ChannelthresholdComponent.SELECTOR + this.componentId);
     }
   }
+
+  currentPower(s: Status): number {
+    switch (s) {
+      case Status.OFF:
+        return 0;
+      case Status.L1:
+        return 2;
+      case Status.L2:
+        return 4;
+      case Status.L3:
+        return 6;
+      default:
+        return 0;
+    }
+  }
+}
+
+enum Status {
+  OFF = -1, // Value is smaller than threshold1.
+  L1,       // Value is larger threshold1 but smaller than threshold2.
+  L2,       // Value is larger threshold2 but smaller than threshold3.
+  L3        // Value is larger threshold3.
 }

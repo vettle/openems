@@ -109,6 +109,9 @@ export const TRANSLATION = {
                         MaxCharging: "Fuerza de carga maxima:",
                         MaxChargingDetails: "Si el automóvil no puede cargar el valor máximo introducido, la potencia se limita automáticamente."
                     }
+                },
+                HeatingElement: {
+                    Title: "calentador"
                 }
             }
         },
